@@ -1,5 +1,3 @@
-from pydoc import describe
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -49,9 +47,17 @@ hourly_trips = df.groupby('pickup_hour')['pickup_hour'].count()
 # Create the line plot using Seaborn
 plt.figure(figsize=(10, 6))
 sns.lineplot(x=hourly_trips.index, y=hourly_trips.values)
+# Find the maximum y-value and its corresponding x-value
+max_y = hourly_trips.values.max()
+max_x = hourly_trips.index[hourly_trips.values == max_y].values[0]
+print("Maximum number of Trips", max_y, "Hour with max trips", max_x)
 plt.xlabel('Hour of Day')
 plt.ylabel('Number of Trips')
 plt.title('Number of Trips by Hour of Day')
+#Add a marker for the maximum y-value
+plt.plot(max_x, max_y, 'ro')
+#Optionally, add a text label
+plt.text(max_x, max_y, f'({max_x}, {max_y})', ha='center', va='bottom')
 plt.show()
 
 #Create another lineplot depicting the number of trips as a function of the day of week. What day of the week is the least busy?
