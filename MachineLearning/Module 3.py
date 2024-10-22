@@ -15,6 +15,8 @@ print(dfcolumns)
 # How many rows are in the dataset? How many unique columns are in the dataset?
 print(f"Number of rows: {df.shape[0]}")
 print(f"Number of unique columns: {df.shape[1]}")
+# Rows: 2,463,931
+# Columns: 19
 
 # Which columns have NULL values and how many NULL values are present in each of these columns?
 print("Columns with NULL values and their counts:")
@@ -24,7 +26,7 @@ print(df.isnull().sum())
 df_no_nulls = df.dropna()
 
 pd.set_option('display.max_columns', None)
-
+pd.set_option('float_format', '{:f}'.format)
 #Generate summary statistics using Pandas' describe method. Do you notice anything unusual in the dataset? Find at least one anomaly and try to come up with a hypothesis to explain it.
 #print("Summary statistics:")
 #print(df['VendorID'].describe())
