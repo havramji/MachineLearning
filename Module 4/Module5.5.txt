@@ -1,0 +1,20 @@
+"C:\Users\ramji\PycharmProjects\Module 4\.venv\Scripts\python.exe" "C:\Users\ramji\PycharmProjects\Module 4\Module 5.5.py"
+   VendorID tpep_pickup_datetime  ... congestion_surcharge  airport_fee
+0         1  2022-01-01 00:35:40  ...                  2.5          0.0
+1         1  2022-01-01 00:33:43  ...                  0.0          0.0
+2         2  2022-01-01 00:53:21  ...                  0.0          0.0
+3         2  2022-01-01 00:25:21  ...                  2.5          0.0
+4         2  2022-01-01 00:36:48  ...                  2.5          0.0
+
+[5 rows x 19 columns]
+Baseline MAE: 9.197182821225734
+Linear Regression MAE: 3.3798778842327906
+Since Linear Regression MAE is lower than baseline MAE, Linear Regression is better than baseline.
+A lower MAE indicates that, on average, the model's predictions are closer to the actual values, making it a better fit for the data.
+Random Forest MAE: 3.7099204269780603
+   estimator    rf_mae
+0          1  3.711408
+Best Random Forest MAE: 3.7114083712099073
+Best Hyperparameters: {'max_depth': 20, 'min_samples_split': 10, 'n_estimators': 100}
+
+Process finished with exit code 0
