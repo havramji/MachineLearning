@@ -92,7 +92,7 @@ print(rf_results_df)
 
 #1 Perform a grid-search on a Random Forest Regressor model.
 # Only search the space for the parameters 'n_estimators', 'max_depth', and 'min_samples_split'.
-# Note, this can take some time to run. Make sure you set reasonable boundaries for the search space.
+# Note,this can take some time to run. Make sure you set reasonable boundaries for the search space.
 # Use Scikit-Learn's GridSearchCV method.
 parameter_grid = {
     'n_estimators': [1, 5, 50, 100],
