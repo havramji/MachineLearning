@@ -14,6 +14,12 @@ from keras.layers import Dense
 from scikeras.wrappers import KerasClassifier
 from sklearn.pipeline import Pipeline
 
+import tensorflow as tf
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
+from tensorflow import keras
+from tensorflow.keras import layers
+
 DATA_PATH = 'https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
 
 #Load the Adult data into a Pandas Dataframe.
@@ -90,11 +96,12 @@ print(f"Number of columns after transformation: {num_columns_after_transformatio
 #Remember, it's always better to start simple and add complexity to the model if necessary.
 #What's a good loss function to use?
 def create_model():
-  model = Sequential()
-  model.add(Dense(64, activation='relu', input_shape=(num_columns_after_transformation,)))
-  model.add(Dense(1, activation='sigmoid'))
-  model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-  return model
+ model = keras.Sequential()
+ model.add(keras.Input(shape=(num_columns_after_transformation,)))
+ model.add(Dense(64, activation='relu'))
+ model.add(Dense(1, activation='sigmoid'))
+ model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+ return model
 
 # Create the KerasClassifier
 keras_clf = KerasClassifier(model=create_model, epochs=10, batch_size=32, verbose=0)
@@ -102,7 +109,7 @@ keras_clf = KerasClassifier(model=create_model, epochs=10, batch_size=32, verbos
 #Keras can be integrated with Scitkit-Learn using a wrapper.
 #Use the KerasClassifier wrapper to integrate your Keras model with the ColumnTransformer from previous steps using a Pipeline object.
 pipeline = Pipeline([
-    ('preprocessor', preprocessor),
+   ('preprocessor', preprocessor),
     ('classifier', keras_clf)
 ])
 
@@ -111,7 +118,7 @@ pipeline.fit(X_train, y_train)
 
 #Calculate the AUC score of your model on the test data. Does the model predict better than random?
 #The AUC score for the majority class classifier was ~0.5.
-#Keras model's AUC (0.91) is much greater than 0.5  so it is better in making predictions than random model
+#Keras model's AUC (0.91) is much greater than 0.5 so it is better in making predictions than random model
 y_pred_prob = pipeline.predict_proba(X_test)[:, 1]
 auc_score = roc_auc_score(y_test, y_pred_prob)
 print(f"AUC score for the Keras model: {auc_score}")
