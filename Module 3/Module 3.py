@@ -127,7 +127,8 @@ plt.show()
 
 #Use Seaborn's boxplot to discern the relationship between payment_type and total_amount. Does anything look weird? Can you explain what's going on?
 #There is an outlier for a very large amount (400,000) for Payment Type 4 (Dispute).  Perhaps a law-suit or a large settlement from law-suit.
-#When the outlier is removed, the plot is more clear showing the total_amount distribution.
+#When the outlier is removed, the plot is more clear showing the total_amount distribution. Some Disputes are resulting in negative total amount,
+#no voids are found.  There is some total amount against Payment Type = 0 which does not have a definition in data dictionary.
 #Create a box plot of total amount by payment type
 df_sample_1 = df.sample(n=10, random_state=42)  # Adjust n as needed
 #plt.figure(figsize=(20, 12))
