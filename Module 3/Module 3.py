@@ -25,7 +25,18 @@ df_no_nulls = df.dropna()
 
 pd.set_option('display.max_columns', None)
 pd.set_option('float_format', '{:f}'.format)
-#Generate summary statistics using Pandas' describe method. Do you notice anything unusual in the dataset? Find at least one anomaly and try to come up with a hypothesis to explain it.
+print ("Summary Statistics as follows:\n")
+#Generate summary statistics using Pandas' describe method. Do you notice anything unusual in the dataset?
+#Find at least one anomaly and try to come up with a hypothesis to explain it.
+
+#Anamoly-1: Minimum Passenger count = 0.  How can this be possible to get a taxi ride without any passenger?
+#Possible-Explanation: Meter might have been running when there was no passenger
+#which could have resulted in a data being recorded as a trip erroneously.
+
+#Anamoly-2: Negative value in Min for fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge.
+#How is possible to get a taxi-ride where the cab-driver is not getting paid and the passenger is receiving the money?
+#Possible-Explanation: Perhaps passenger is getting refunded due to disputes?
+
 #print("Summary statistics:")
 #print(df['VendorID'].describe())
 #print(df['tpep_pickup_datetime'].describe())
@@ -41,7 +52,10 @@ df['pickup_day_of_week'] = df['tpep_pickup_datetime'].dt.dayofweek
 df['pickup_hour'] = df['tpep_pickup_datetime'].dt.hour
 
 #Use the Seaborn library to create a line plot depicting the number of trips as a function of the hour of day. What's the busiest time of day?
-#Create another lineplot depicting the number of trips as a function of the day of week. What day of the week is the least busy?#
+#Busiest time of day is between 18:00 - 18:20 in the evening.
+#Create another lineplot depicting the number of trips as a function of the day of week. What day of the week is the least busy?
+#Tuesday(1) is the least busy day of the week in terms on number of trips.
+
 #Group data by pickup hour and count the number of trips
 hourly_trips = df.groupby('pickup_hour')['pickup_hour'].count()
 # Create the line plot using Seaborn
@@ -112,7 +126,9 @@ plt.xticks(rotation=45, ha='right')
 plt.show()
 
 #Use Seaborn's boxplot to discern the relationship between payment_type and total_amount. Does anything look weird? Can you explain what's going on?
-# Create a box plot of total amount by payment type
+#There is an outlier for a very large amount (400,000) for Payment Type 4 (Dispute).  Perhaps a law-suit or a large settlement from law-suit.
+#When the outlier is removed, the plot is more clear showing the total_amount distribution.
+#Create a box plot of total amount by payment type
 df_sample_1 = df.sample(n=10, random_state=42)  # Adjust n as needed
 #plt.figure(figsize=(20, 12))
 #sns.boxplot(x='payment_type', y='total_amount', data=df_sample_1)
