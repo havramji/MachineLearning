@@ -36,7 +36,10 @@ y = df[target_variable]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=40)
 
 #1 Create a model that always predicts the mean total fare of the training dataset.
-# Use Scikit-Learn's mean_absolute_error to evaluate this model. Is it any good?
+#Use Scikit-Learn's mean_absolute_error to evaluate this model. Is it any good?
+#mean_absolute_error predictions are not close to the actual values as MAE is 9.197 therefore model
+#that always predicts the mean is not a good model
+#as others whose MAE is lower.
 mean_fare = y_train.mean()
 baseline_predictions = np.full(y_test.shape, mean_fare)
 baseline_mae = mean_absolute_error(y_test, baseline_predictions)
@@ -61,6 +64,8 @@ model = Pipeline(steps=[('preprocessor', preprocessor),
 model.fit(X_train, y_train)
 
 #4 Evaluate the model using mean absolute error as a metric on the test data. Does the model beat the baseline?
+#Yes, Since Linear Regression MAE is lower than baseline MAE, Linear Regression is better than baseline model which
+#always predicts the mean.
 y_pred = model.predict(X_test)
 mae = mean_absolute_error(y_test, y_pred)
 
